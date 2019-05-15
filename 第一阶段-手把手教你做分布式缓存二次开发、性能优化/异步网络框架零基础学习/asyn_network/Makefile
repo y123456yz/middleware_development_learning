@@ -1,4 +1,4 @@
-TARGET = main
+TARGET = net
 OBJS = ae.o zmalloc.o ae_epoll.o anet.o main.o
 DEPS = ae.h anet.h zmalloc.h
 CPPFLAGS = -g
