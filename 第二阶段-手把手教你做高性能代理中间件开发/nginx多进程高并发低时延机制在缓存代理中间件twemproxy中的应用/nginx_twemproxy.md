@@ -3,7 +3,8 @@ _**0\. 技术交流群QQ**_
     
     
 	
-  * [nginx多进程、高性能、低时延、高可靠机制应用于缓存中间件twemproxy，对twemproxy进行多进程优化改造，提升TPS，降低时延，代理中间件长连接百万TPS/短连接五十万TPS实现原理-网页版](https://my.oschina.net/u/4087916/blog/3016162)   	
+* [nginx多进程、高性能、低时延、高可靠机制应用于缓存中间件twemproxy，对twemproxy进行多进程优化改造，提升TPS，降低时延，代理中间件长连接百万TPS/短连接五十万TPS实现原理-网页版](https://my.oschina.net/u/4087916/blog/3016162)     
+    
 _**1\. 开发背景**_
 
      现有开源缓存代理中间件有twemproxy、codis等，其中twemproxy为单进程单线程模型，只支持memcache单机版和redis单机版，都不支持集群版功能。
