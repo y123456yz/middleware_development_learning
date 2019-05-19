@@ -186,11 +186,11 @@ _**4.3.2.2 支持reuseport和不支持reuseport的区别**_
 
 不支持该特性的内核，一个ip+port组合，只能被监听bind一次。这样在多核环境下，往往只能有一个线程（或者进程）是listener，也就是同一时刻只能由一个进程或者线程做accept处理，在高并发情况下，往往这就是性能瓶颈。其网络模型如下:
 
-![](/picture/0bd4d451a44cf2c9.jpeg)
+![](/img/0bd4d451a44cf2c9.jpeg)
 
 在Linux kernel 3.9带来了reuseport特性，它可以解决上面的问题，其网络模型如下:
 
-![](./picture/01cee96e3952501d.jpeg)
+![](/img/01cee96e3952501d.jpeg)
 
 reuseport是支持多个进程或者线程绑定到同一端口，提高服务器程序的吞吐性能，其优点体现在如下几个方面:
 
