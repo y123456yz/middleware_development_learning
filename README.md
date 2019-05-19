@@ -40,7 +40,8 @@
    
 ## 其他分享   
   * [source insight中文乱码、背景色等配置调整](https://github.com/y123456yz/middleware_development_learning/tree/master/source%20insight%20configure)   
-    
+  * [linux内核协议栈TCP time_wait原理、优化、副作用](https://my.oschina.net/u/4087916/blog/3051356)         
+	
 	
 
    
