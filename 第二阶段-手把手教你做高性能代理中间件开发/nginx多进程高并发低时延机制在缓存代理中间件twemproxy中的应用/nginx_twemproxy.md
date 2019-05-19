@@ -50,7 +50,7 @@ iiiiiiiiiiiiiii)连接复用，内存复用，提高效率
 
 _**2.2 memcache缓存集群拓扑结构**_
 
-![](/img/3b3bd23d3712575a3164189ddea27f4cc99.jpg)
+![](/img/3b3bd23d3712575a3164189ddea27f4cc99.jpeg)
 
 图1 twemproxy缓存集群拓扑图
 
@@ -74,7 +74,7 @@ iiiii)扩容、升级不便
 
 原生twemproxy进程呈现了下图现象：一个人干活，多个人围观。多核服务器只有一个cpu在工作，资源没有得到充分利用。
 
-![](/img/a4390cc43dfea7e10ab21a302938810617f.jpg)
+![](/img/a4390cc43dfea7e10ab21a302938810617f.jpeg)
 
 _**3\. Nginx**_
 
