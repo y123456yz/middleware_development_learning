@@ -44,7 +44,7 @@ iiiiiiiiiiiiiii)连接复用，内存复用，提高效率
 
 _**2.2 memcache缓存集群拓扑结构**_
 
-![](/picture/3b3bd23d3712575a3164189ddea27f4cc99.jpg)
+![](/img/3b3bd23d3712575a3164189ddea27f4cc99.jpg)
 
 图1 twemproxy缓存集群拓扑图
 
@@ -68,7 +68,7 @@ iiiii)扩容、升级不便
 
 原生twemproxy进程呈现了下图现象：一个人干活，多个人围观。多核服务器只有一个cpu在工作，资源没有得到充分利用。
 
-![](/picture/a4390cc43dfea7e10ab21a302938810617f.jpg)
+![](/img/a4390cc43dfea7e10ab21a302938810617f.jpg)
 
 _**3\. Nginx**_
 
@@ -156,13 +156,13 @@ Nginx实现了两套互斥锁：基于原子操作和信号量实现的互斥锁
 
 Worker进程主循环工作流程图如下：
 
-![](/picture/ac35111fff96352e.jpeg)
+![](/img/ac35111fff96352e.jpeg)
 
 从上图可以看出，worker进程借助epoll来实现网络异步收发，客户端连接twemproxy的时候，worker进程循环检测客户端的各种网络事件和后端memcached的网络事件，并进行相应的处理。
 
 twemproxy各个进程整体网络i/o处理过程图如下：
 
-![](/picture/7f5e6afd9f878904.jpeg)
+![](/img/7f5e6afd9f878904.jpeg)
 
 _**4.3.1.2     如何解决“负载均衡“问题**_
 
@@ -212,7 +212,7 @@ _**4.3.3 Master进程和worker进程如何通信？**_
 
 配置下发过程：主进程接收实时配置信息，然后通过channel机制发送给所有的worker进程，各个worker进程收到配置信息后应答给工作进程。流程如下:
 
-![](/picture/e5f56c7dae8196cf.jpeg)
+![](/img/e5f56c7dae8196cf.jpeg)
 
 获取监控信息流程和配置下发流程基本相同，master进程收到各个工作进程的应答后，由master进程做统一汇总，然后发送给客户端。
 
@@ -230,7 +230,7 @@ _**4.3.5 worker进程异常如何减少对业务的影响？**_
 
 如果某个worker进程挂了，master父进程会感知到这个信号，然后重新拉起一个worker进程，实现瞬间无感知”拉起”恢复。以下为模拟触发异常段错误流程：
 
-![](/picture/2b7ece6a68414958.jpeg)
+![](/img/2b7ece6a68414958.jpeg)
 
 如上图所示，杀掉31420 worker进程后，master进程会立马在拉起一个31451工作进程，实现了快速恢复。
 
@@ -250,11 +250,11 @@ _**5.2 可怕的40ms**_
 
 原生twemproxy在线上跑得过程中，发现时延波动很大，抓包发现其中部分数据包应答出现了40ms左右的时延，拉高了整体时延抓包如下(借助tcprstat工具)：
 
-![](/picture/7644ae4924763d2c.jpeg)
+![](/img/7644ae4924763d2c.jpeg)
 
 解决办法如下：在recv系统调用后，调用一次setsockopt函数，设置TCP_QUICKACK。代码修改如下：
 
-![](/picture/95ddda34d5a9c517.jpeg)
+![](/img/95ddda34d5a9c517.jpeg)
 
 _**6   Twemproxy改造前后性能对比   (时延、qps对比)**_
 
@@ -264,17 +264,17 @@ _**6.1.1  改造前线上twemproxy集群时延**_
 
 线上集群完全采用开源twemproxy做代理，架构如下：
 
-![](/picture/96468d6b103c7154.jpeg)
+![](/img/96468d6b103c7154.jpeg)
 
 未改造前线上twemproxy+memcache集群，qps=5000~6000，长连接，客户端时延分布如下图所示：
 
-![](/picture/bd9dfb9a9e0078a9.jpeg)
+![](/img/bd9dfb9a9e0078a9.jpeg)
 
-![](/picture/f54e1d56dbf27a1e.jpeg)
+![](/img/f54e1d56dbf27a1e.jpeg)
 
 在twemproxy机器上使用tcprstat监控到的网卡时延如下:
 
-![](/picture/e17fb44cf6f5adc4.jpeg)
+![](/img/e17fb44cf6f5adc4.jpeg)
 
 从上面两个图可以看出，采用原生twemproxy,时延高，同时抖动厉害。
 
@@ -282,25 +282,25 @@ _**6.1.1  改造前线上twemproxy集群时延**_
 
 线上集群一个twemproxy采用官方原生twemproxy，另一个为改造后的twemproxy，其中改造后的twemproxy配置worker进程数为1，保持和原生开源twemproxy进程数一致，架构如下：
 
-![](/picture/3fd1dd8ab214413e.jpeg)
+![](/img/3fd1dd8ab214413e.jpeg)
 
 替换线上集群两个代理中的一个后(影响50%流量)，长连接，qps=5000~6000，客户端埋点监控时延分布如下:
 
-![](/picture/4557ecb3b2c33c06.jpeg)
+![](/img/4557ecb3b2c33c06.jpeg)
 
-![](/picture/a78a74bbfb6ba1e7.jpeg)
+![](/img/a78a74bbfb6ba1e7.jpeg)
 
-![](/picture/41a1eba8a26bcfe8.jpeg)
+![](/img/41a1eba8a26bcfe8.jpeg)
 
 替换两个proxy中的一个后，使用tcprstat在代理集群上面查看两个代理的时延分布如下:
 
 原生twemproxy节点机器上的时延分布:
 
-![](/picture/fc9914ad170360c4.jpeg)
+![](/img/fc9914ad170360c4.jpeg)
 
 另一个改造后的twemproxy节点机器上的时延分布：
 
-![](/picture/a5a82174c29d6fc7.jpeg)
+![](/img/a5a82174c29d6fc7.jpeg)
 
 总结：替换线上两个proxy中的一个后，客户端时间降低了一倍，如果线上集群两个代理都替换为改造后的twemproxy，客户端监控时延预计会再降低一倍，总体时延降低3倍左右。
 
@@ -314,7 +314,7 @@ _**6.2 参考nginx多进程改造后的twemproxy线下压测结果(开启reusep
 
    物理机机型： M10(48 cpu)
 
-![](/picture/7460961a4ad0d6ac.jpeg)
+![](/img/7460961a4ad0d6ac.jpeg)
 
 多进程监听同一个端口，数据长度150字节，压测结果如下：
 
@@ -322,7 +322,7 @@ _**6.2 参考nginx多进程改造后的twemproxy线下压测结果(开启reusep
 
    物理机机型： TS60 (24 cpu)
 
-![](/picture/91829576d53d9be3.jpeg)
+![](/img/91829576d53d9be3.jpeg)
 
 _**7   总结**_
 
