@@ -190,7 +190,7 @@ _**4.3.2.2 支持reuseport和不支持reuseport的区别**_
 
 在Linux kernel 3.9带来了reuseport特性，它可以解决上面的问题，其网络模型如下:
 
-![](/picture/01cee96e3952501d.jpeg)
+![](./picture/01cee96e3952501d.jpeg)
 
 reuseport是支持多个进程或者线程绑定到同一端口，提高服务器程序的吞吐性能，其优点体现在如下几个方面:
 
