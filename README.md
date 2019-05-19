@@ -32,4 +32,4 @@
   
    
 ## 其他分享   
-  * [source insight中文乱码、背景色等配置调整]() 
+  * [source insight中文乱码、背景色等配置调整](https://github.com/y123456yz/middleware_development_learning/tree/master/source%20insight%20configure)   
