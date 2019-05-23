@@ -1,0 +1,6 @@
+*.o
+*.log
+block_client
+block_server
+noblock_client
+noblock_server

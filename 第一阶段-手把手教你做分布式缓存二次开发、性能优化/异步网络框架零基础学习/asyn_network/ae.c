@@ -64,7 +64,7 @@ aeEventLoop *aeCreateEventLoop(int setsize) {
     eventLoop->fired = zmalloc(sizeof(aeFiredEvent)*setsize);
     if (eventLoop->events == NULL || eventLoop->fired == NULL) goto err;
     // 设置数组大小
-    eventLoop->setsize = setsize;
+     eventLoop->setsize = setsize;
     // 初始化执行最近一次执行时间
     eventLoop->lastTime = time(NULL);
 
@@ -155,7 +155,9 @@ void aeStop(aeEventLoop *eventLoop) {
 /*
  * 根据 mask 参数的值，监听 fd 文件的状态，
  * 当 fd 可用时，执行 proc 函数
- */ //文件事件aeCreateFileEvent   时间事件aeCreateTimeEvent  aeProcessEvents中执行文件和时间事件
+ */ 
+ //文件事件aeCreateFileEvent   时间事件aeCreateTimeEvent  aeProcessEvents中执行文件和时间事件
+ //注册fd对应的mask事件到epoll对应的fd事件集中，同时设置对应的读写事件回调
 int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask, //mask对应的是读写事件AE_READABLE  AE_WRITABLE等
         aeFileProc *proc, void *clientData)
 {

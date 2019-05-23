@@ -21,6 +21,10 @@
 #define REDIS_MAX_QUERYBUF_LEN  10240
 #define REDIS_TCP_BACKLOG       511     /* TCP listen backlog */
 #define REDIS_IP_STR_LEN        INET6_ADDRSTRLEN
+#define REDIS_MIN_RESERVED_FDS     32
+#define REDIS_EVENTLOOP_FDSET_INCR (REDIS_MIN_RESERVED_FDS+96)
+#define REDIS_MAX_CLIENTS          10000
+
 //错误信息
 char g_neterror_buf[1024];
 
@@ -34,7 +38,7 @@ int MainTimerExpire(struct aeEventLoop *eventLoop, long long id, void *clientDat
 {
     printf("MainTimerExpire\n");
 
-    //15秒后再次执行该函数
+    //15秒后再次执行该函数,如果这里返回0，则定时器只会执行一次，返回大于0，则是周期性定时器
     return 15000;
 }
 
@@ -105,31 +109,37 @@ void MainAcceptTcpHandler(aeEventLoop *el, int fd, void *privdata, int mask)
     }
 }
 
+void MainPriorityRun(struct aeEventLoop *eventLoop) {
+    printf("I run befor all other epoll event\n");
+}
 int main()
 {
 
     printf("process Start begin\n");
 
     //初始化EPOLL事件处理器状态
-    g_epoll_loop = aeCreateEventLoop(1024*10);
+    g_epoll_loop = aeCreateEventLoop(REDIS_MAX_CLIENTS + REDIS_EVENTLOOP_FDSET_INCR);
 
     //创建套接字并bind
-    int fd = anetTcpServer(g_neterror_buf, REDIS_SERVERPORT, NULL, REDIS_TCP_BACKLOG);
-    if( ANET_ERR == fd ) {
+    int sd = anetTcpServer(g_neterror_buf, REDIS_SERVERPORT, NULL, REDIS_TCP_BACKLOG);
+    if( ANET_ERR == sd ) {
         fprintf(stderr, "Open port %d error: %s\n", REDIS_SERVERPORT, g_neterror_buf);
         exit(1);
     }
-    
-    anetNonBlock(NULL, fd);
-    anetSetReuseAddr(NULL, fd);
-    if(aeCreateFileEvent(g_epoll_loop, fd, AE_READABLE,  MainAcceptTcpHandler, NULL) == AE_ERR ) {
+
+    //设置socket bind对应的fd为非阻塞
+    anetNonBlock(NULL, sd);
+    //某些情况下，服务端进程退出后，会有监听端口timwait状态的连接，这时候如果重启进程，会提示error:98，Address already in use，就可以用该设置来解决该问题。
+    anetSetReuseAddr(NULL, sd);
+    if(aeCreateFileEvent(g_epoll_loop, sd, AE_READABLE,  MainAcceptTcpHandler, NULL) == AE_ERR ) {
         fprintf(stderr, "aeCreateFileEvent failed");
         exit(1);
     }
     
     //设置定时器
     aeCreateTimeEvent(g_epoll_loop, 1, MainTimerExpire, NULL, NULL);
-
+    //在aeMain循环中，优先运行该回调
+    aeSetBeforeSleepProc(g_epoll_loop, MainPriorityRun);
     //开启事件循环
     aeMain(g_epoll_loop);
 
