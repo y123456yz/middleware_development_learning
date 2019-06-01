@@ -151,7 +151,7 @@ rsyslog配置如下:
 3. 重启rsyslog
    service rsyslog restart (注意，千万不能杀进程，然后通过/usr/sbin/rsyslogd -n来启动，这样rsyslog输出会有异常)
 */
-//输出到文件，并记录到syslog服务日志中
+//输出到文件，并记录到syslog服务日志中。如果日志量很大，同步写文件会严重影响性能，异步syslog写日志可以避免该问题
 int main(int argc, char **argv) {
     strcpy(server.logfile, "./log");
     
