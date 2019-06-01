@@ -75,7 +75,7 @@ void redisLogRaw(int level, const char *msg) { //ÈÕÖ¾ÕâÀïÊÇ´ò¿ªÎÄ¼ş£¬Ğ´Èë£¬È»ºó¹
         snprintf(buf+off,sizeof(buf)-off,"%03d",(int)tv.tv_usec/1000);
         fprintf(fp,"[%d] %s %c %s\n",(int)getpid(),buf,c[level],msg);
     }
-    //±£Ö¤Ã¿ÌõÈÕÖ¾¶¼Ë¢ÅÌ
+    //±£Ö¤Ã¿ÌõÈÕÖ¾¶¼Ë¢ÅÌ£¬Èç¹ûÈÕÖ¾Á¿ºÜ´ó£¬Ğ´ÎÄ¼ş»á×èÈû³ÌĞò£¬ÇĞ¼Ç×¢Òâ
     fflush(fp);
 
     if (!log_to_stdout) fclose(fp);
