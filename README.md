@@ -21,13 +21,7 @@
   
 第四阶段：手把手教你做mongodb数据库内核开发(突破redis、pika只支持redis协议限制，学习更复杂查询、索引、更多数据库相关等实现原理)  
 主要涉及mongodb源码、mongos源码、rocksdb存储引擎源码、wiredtiger存储引擎源码分析及二次开发  
-  
-  
-## 技术交流群  
-对linux c/c++ nginx redis memcache twemproxy mongodb 中间件 存储引擎 分布式 高并发 高性能服务端等技术敢兴趣的同学可以加群： QQ交流群1(针对在校生)-(群号：568892619 )      QQ交流群2(针对已工作)-(581089275)     
-微信二维码(由于群人员超过100，只能靠邀请加入，请先加如下微信，然后我拉进群)：
-   
-![](/img/9A1AA1E5ED9CE5F11CA0781DEC2D5AEC.jpeg)
+
   
   
 ## 第一阶段：手把手教你做分布式缓存开发、性能稳定性优化:    
@@ -49,9 +43,14 @@
 ## 其他分享   
   * [source insight代码中文注释乱码、背景色等配置调整](https://github.com/y123456yz/middleware_development_learning/tree/master/source%20insight%20configure)   
   * [linux内核协议栈TCP time_wait原理、优化、副作用](https://my.oschina.net/u/4087916/blog/3051356)         
-	
-	
-
+    
+    
+  
+## 技术交流群  
+对linux c/c++ nginx redis memcache twemproxy mongodb 中间件 存储引擎 分布式 高并发 高性能服务端等技术敢兴趣的同学可以加群： QQ交流群1(针对在校生)-(群号：568892619 )      QQ交流群2(针对已工作)-(581089275)     
+微信二维码(由于群人员超过100，只能靠邀请加入，请先加如下微信，然后我拉进群)：
+   
+![](/img/9A1AA1E5ED9CE5F11CA0781DEC2D5AEC.jpeg)
    
   
   
