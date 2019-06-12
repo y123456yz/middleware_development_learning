@@ -111,7 +111,6 @@ static list *bio_jobs[BIO_NUM_OPS];
 // 记录每种类型 job 队列里有多少 job 等待执行
 static unsigned long long bio_pending[BIO_NUM_OPS];
 
-
 void *bioProcessBackgroundJobs(void *arg);
 
 /* Make sure we have enough stack to perform all the things we do in the
@@ -175,7 +174,7 @@ void bioInit(void) {
 /*
  * 创建后台任务
  */ //由新的线程bio_threads来执行job   bioProcessBackgroundJobs中执行
-void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRunFunc func) {
+int bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRunFunc func) {
     struct bio_job *job = zmalloc(sizeof(*job));
 
     job->time = time(NULL);
@@ -186,14 +185,21 @@ void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRu
     job->func = func;
 
     pthread_mutex_lock(&bio_mutex[type]);
+    bio_pending[type]++;
+    if(bio_pending[type] >= BIO_MAX_PENDING_NUM) {
+        pthread_mutex_unlock(&bio_mutex[type]);
+        printf("task type:%d have much overstock, over %d\r\n", type, BIO_MAX_PENDING_NUM);
+        return -1; //任务积压厉害
+    }
 
     // 将新工作推入队列
     listAddNodeTail(bio_jobs[type],job);
-    bio_pending[type]++;
-
+        
     pthread_cond_signal(&bio_condvar[type]);
 
     pthread_mutex_unlock(&bio_mutex[type]);
+
+    return 0;
 }
 
 /*

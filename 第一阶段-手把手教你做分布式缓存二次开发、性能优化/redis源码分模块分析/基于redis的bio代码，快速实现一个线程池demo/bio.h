@@ -56,13 +56,15 @@ struct bio_job {
 
 /* Exported API */
 void bioInit(void);
-void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRunFunc func);
+int bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRunFunc func);
 unsigned long long bioPendingJobsOfType(int type);
 void bioWaitPendingJobsLE(int type, unsigned long long num);
 //time_t bioOlderJobOfType(int type);
 void bioKillThreads(void);
 void *bioProcessBackgroundJobs(void *arg);
 
+//任务队列上限，如果超过这么多，说明任务积压很严重
+#define BIO_MAX_PENDING_NUM  1000
 
 /* Background job opcodes */
 //这里有两组线程池，分别做不同的事情
