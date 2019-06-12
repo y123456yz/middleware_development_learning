@@ -32,6 +32,7 @@
 #include <sys/epoll.h>
 #include "ae.h"
 #include "zmalloc.h"
+#include <unistd.h>
 
 /*
  * ÊÂ¼þ×´Ì¬
