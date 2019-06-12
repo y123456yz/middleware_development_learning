@@ -188,7 +188,7 @@ setsockopt参数说明如下:
 
     socket: 可以是bind/listen对应的sd，也可以是accept获取到的新连接fd。
 
-    level: 参数level是被设置的选项的级别，套接字级别对应 SOL\_SOCKET，tcp网络设置级别对应SOL\_SOCKET.
+    level: 参数level是被设置的选项的级别，套接字级别对应 SOL\_SOCKET，tcp网络设置级别对应IPPROTO\_TCP.
 
     option_name: 选项类型。
 
