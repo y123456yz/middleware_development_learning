@@ -1,0 +1,8 @@
+./backtrace[0x4007ba]
+./backtrace[0x400900]
+/lib64/libc.so.6(+0x35270)[0x7f0b3ecb7270]
+./backtrace[0x400900]
+./backtrace[0x40091e]
+./backtrace[0x400935]
+/lib64/libc.so.6(__libc_start_main+0xf5)[0x7f0b3eca3c05]
+./backtrace[0x400689]
