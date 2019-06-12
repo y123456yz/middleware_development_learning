@@ -1,16 +1,17 @@
 TARGET = threadPoll
-OBJS = zmalloc.o sds.o config.o  main.o
-DEPS = sds.h config.h zmalloc.h 
+OBJS = adlist.o bio.o zmalloc.o threadPoll_Main.o
+DEPS = adlist.h bio.h zmalloc.h
 CPPFLAGS = -g
 CC = gcc
+LIBLINK = -lpthread
 
 $(TARGET) : $(OBJS) 
-	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS)
+	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS) $(LIBLINK)
 
-sds.o: sds.c
-config.o : config.c
+adlist.o : adlist.c
+bio.o: bio.c
 zmalloc.o: zmalloc.c
-main.o : main.c $(DEPS)
+threadPoll_Main.o : threadPoll_Main.c $(DEPS)
 
 clean :
 	rm $(OBJS) $(TARGET)

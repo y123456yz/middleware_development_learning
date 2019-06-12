@@ -1,0 +1,4 @@
+*.o
+*.log
+threadPoll
+

@@ -27,6 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <time.h>
 
 typedef int (*taskRunFunc)(void *arg1, void *arg2, void *arg3);
 
@@ -55,11 +56,12 @@ struct bio_job {
 
 /* Exported API */
 void bioInit(void);
-void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3);
+void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRunFunc func);
 unsigned long long bioPendingJobsOfType(int type);
 void bioWaitPendingJobsLE(int type, unsigned long long num);
-time_t bioOlderJobOfType(int type);
+//time_t bioOlderJobOfType(int type);
 void bioKillThreads(void);
+void *bioProcessBackgroundJobs(void *arg);
 
 
 /* Background job opcodes */
@@ -68,6 +70,6 @@ void bioKillThreads(void);
 #define BIO_TASK2     1    //任务2对应的线程池
 #define BIO_NUM_OPS   2
 
-#define BIO_TASK_THREAD_NUM     5   //线程池中线程数
+#define BIO_TASK_THREAD_NUM     5   //每个线程池中线程数
 
 

@@ -83,10 +83,18 @@
  */
 
 
-#include "redis.h"
+//#include "redis.h"
 #include "bio.h"
+#include "adlist.h"
+#include "zmalloc.h"
+#include <string.h>
 
-// 工作线程，斥互和条件变量
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <pthread.h>
+
+// 工作线程，斥互和条件变量  BIO_NUM_OPS为线程池数组，每个线程池包含BIO_TASK_THREAD_NUM个线程，分别处理不同的事情
 static pthread_t bio_threads[BIO_NUM_OPS][BIO_TASK_THREAD_NUM];
 static pthread_mutex_t bio_mutex[BIO_NUM_OPS];
 static pthread_cond_t bio_condvar[BIO_NUM_OPS];
@@ -156,7 +164,7 @@ void bioInit(void) {
         int i = 0;
         for (i = 0; i < BIO_TASK_THREAD_NUM; i ++) {
             if (pthread_create(&thread,&attr,bioProcessBackgroundJobs,arg) != 0) {
-                printf(REDIS_WARNING,"Fatal: Can't initialize Background Jobs.");
+                printf("Fatal: Can't initialize Background Jobs.");
                 exit(1);
             }
             bio_threads[j][i] = thread;
@@ -174,6 +182,7 @@ void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRu
     job->arg1 = arg1;
     job->arg2 = arg2;
     job->arg3 = arg3;
+    //bioProcessBackgroundJobs中执行
     job->func = func;
 
     pthread_mutex_lock(&bio_mutex[type]);
@@ -188,7 +197,7 @@ void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3, taskRu
 }
 
 /*
- * 处理后台任务  执行队列中的任务
+ * 线程回调函数，处理后台任务  执行队列中的任务
  */
 void *bioProcessBackgroundJobs(void *arg) {
     struct bio_job *job;
@@ -203,10 +212,10 @@ void *bioProcessBackgroundJobs(void *arg) {
     pthread_mutex_lock(&bio_mutex[type]);
     /* Block SIGALRM so we are sure that only the main thread will
      * receive the watchdog signal. */
-    sigemptyset(&sigset);
-    sigaddset(&sigset, SIGALRM);
-    if (pthread_sigmask(SIG_BLOCK, &sigset, NULL))
-        printf("Warning: can't mask SIGALRM in bio.c thread: %s", strerror(errno));
+    //sigemptyset(&sigset);
+    //sigaddset(&sigset, SIGALRM);
+    //if (pthread_sigmask(SIG_BLOCK, &sigset, NULL))
+    //    printf("Warning: can't mask SIGALRM in bio.c thread: %s", strerror(errno));
 
     while(1) {
         listNode *ln;
@@ -224,6 +233,10 @@ void *bioProcessBackgroundJobs(void *arg) {
         ln = listFirst(bio_jobs[type]);
         job = ln->value;
 
+        // 将执行完成的任务从队列中删除，并减少任务计数器
+        listDelNode(bio_jobs[type],ln);
+        bio_pending[type]--;
+
         /* It is now possible to unlock the background system as we know have
          * a stand alone job structure to process.*/
         pthread_mutex_unlock(&bio_mutex[type]);
@@ -237,17 +250,18 @@ void *bioProcessBackgroundJobs(void *arg) {
             job->func(job->arg1, job->arg1, job->arg3);
 
         } else {
-            printf("Wrong job type in bioProcessBackgroundJobs().");
+            printf("Wrong job type in bioProcessBackgroundJobs(). type:%d\r\n", type);
         }
 
+        //printf("job:%p , type:%d\r\n", job, type);
         zfree(job);
 
         /* Lock again before reiterating the loop, if there are no longer
          * jobs to process we'll block again in pthread_cond_wait(). */
         pthread_mutex_lock(&bio_mutex[type]);
-        // 将执行完成的任务从队列中删除，并减少任务计数器
-        listDelNode(bio_jobs[type],ln);
-        bio_pending[type]--;
+
+        //listDelNode(bio_jobs[type],ln);
+        //bio_pending[type]--;
     }
 }
 
@@ -283,7 +297,7 @@ void bioKillThreads(void) {
                     printf("Bio thread for job type #%d can be joined: %s",
                             j, strerror(err));
                 } else {
-                    printf"Bio thread for job type #%d terminated",j);
+                    printf("Bio thread for job type #%d terminated",j);
                 }
             }
         }
