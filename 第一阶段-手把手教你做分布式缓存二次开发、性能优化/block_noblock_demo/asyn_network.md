@@ -31,7 +31,7 @@ git地址:[https://github.com/y123456yz/middleware\_development\_learning](https
 
 函数声明：int epoll\_ctl(int epfd, int op, int fd, struct epoll\_event event)
 
-    该函数用于控制某个文件描述符上的事件，可以注册事件，修改事件，删除事件。epoll_wait个参数说明如下：
+    该函数用于控制某个文件描述符上的事件，可以注册事件，修改事件，删除事件。epoll\_ctl的参数说明如下：
 
      epfd: epoll事件集文件描述符，也就是epoll_create返回值
 
