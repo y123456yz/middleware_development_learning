@@ -24,13 +24,6 @@
   
   
   
-## 技术交流群  
-对linux c/c++ nginx redis memcache twemproxy mongodb 中间件 存储引擎 分布式 高并发 高性能服务端等技术敢兴趣的同学可以加群： QQ交流群1(针对在校生)-(群号：568892619 )      QQ交流群2(针对已工作)-(581089275)     
-微信二维码(由于群人员超过100，只能靠邀请加入，请先加如下微信，然后我拉进群)：
-   
-![](/img/9A1AA1E5ED9CE5F11CA0781DEC2D5AEC.jpeg)
-  
-  
 ## 第一阶段：手把手教你做分布式缓存开发、性能稳定性优化:    
   * [memcached源码详细分析注释，带详尽中文注释及函数调用关系](https://github.com/y123456yz/Reading-and-comprehense-redis-cluster)  
   * [redis源码详细分析注释，带详尽中文注释及函数调用关系](https://github.com/y123456yz/Reading-and-comprehense-memcached-1.4.22)  
