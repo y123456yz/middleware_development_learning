@@ -48,7 +48,7 @@
 ## 第三阶段：手把手教你做wiredtiger、rocksdb存储引擎开发，大容量nosql存储系统二次开发   
   * [文档数据库mongodb kv存储引擎wiredtiger源码详细分析注释](https://github.com/y123456yz/reading-and-annotate-wiredtiger-3.0.0)  
   * [rocksdb-6.1.2 KV存储引擎源码中文注释分析](https://github.com/y123456yz/reading-and-annotate-rocksdb-6.1.2)  
-   
+  * [百万级高并发mongodb集群性能数十倍提升优化实践(上篇)](https://my.oschina.net/u/4087916/blog/3141909)    
    
 ## 第四阶段：mongodb数据库源码学习，二次开发等   
   * [文档数据库mongodb kv存储引擎wiredtiger源码详细分析注释](https://github.com/y123456yz/reading-and-annotate-wiredtiger-3.0.0)  
