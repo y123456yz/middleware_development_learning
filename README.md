@@ -53,7 +53,8 @@
 ## 第四阶段：mongodb数据库源码学习，二次开发等   
   * [文档数据库mongodb kv存储引擎wiredtiger源码详细分析注释](https://github.com/y123456yz/reading-and-annotate-wiredtiger-3.0.0)  
   * [为何需要对开源社区版本mongodb做二次开发，需要做哪些二次开发](https://github.com/y123456yz/middleware_development_learning/blob/master/%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5-mongodb%E6%95%B0%E6%8D%AE%E5%BA%93/development_mongodb.md)  
-   
+  * [百万级高并发mongodb集群性能数十倍提升优化实践(上篇)](https://my.oschina.net/u/4087916/blog/3141909)      
+  * [百万级高并发mongodb集群性能数十倍提升优化实践(下篇)](https://my.oschina.net/u/4087916/blog/3155205)  
    
 ## 其他分享   
   * [阿里巴巴分布式消息队列中间件rocketmq-3.4.6源码分析](https://github.com/y123456yz/reading-and-annotate-rocketmq-3.4.6)  
