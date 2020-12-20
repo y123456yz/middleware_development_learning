@@ -7,6 +7,12 @@
   * [Qcon全球软件开发大会分享：OPPO万亿级文档数据库MongoDB集群性能优化实践](https://qcon.infoq.cn/2020/shenzhen/track/916)    
   * [2019年mongodb年终盛会：OPPO百万级高并发MongoDB集群性能数十倍提升优化实践](https://www.shangyexinzhi.com/article/428874.html)    
   * [2020年mongodb年终盛会：万亿级文档数据库集群性能优化实践](https://mongoing.com/archives/76151)    
+    
+### 专栏  
+  * [infoq专栏：《MongoDB内核源码设计、性能优化、最佳运维实践》](https://www.infoq.cn/profile/8D2D4D588D3D8A/publish)    
+  * [github专栏:《mongodb内核源码中文注释详细分析及性能优化时间系列》](https://github.com/y123456yz/reading-and-annotate-mongodb-3.6)    
+  * [知乎专栏：《MongoDB内核源码设计、性能优化、最佳运维实践》](https://www.zhihu.com/people/yang-ya-zhou-42/columns)    
+  * [itpub专栏:《mongodb内核源码设计实现、性能优化、最佳运维实践》](http://blog.itpub.net/column/150)   
    
 
 分阶段分享  
