@@ -26,10 +26,10 @@
 ===================================  
 |#|阶段|内容|说明|
 |:-|:-|:-|:-|
-|1|第一阶段|分布式缓存源码学习、二次开发、性能及稳定性优化|主要涉及网络实现、memcache redis重要模块源码分析、memcache redis性能稳定性优化及二次开发等|
-|2|第二阶段|高性能代理中间件开发(nginx、wemproxy、dbproxy、mongos等源码进行二次开发)|主要涉及代理中间件源码分析、性能优化、二次开发等|
-|3|第三阶段|分布式大容量nosql存储系统二次开发(突破缓存内存容量限制)|主要涉及pika、tendis源码、rocksdb存储引擎源码分析及pika性能优化等|
-|4|第四阶段|mongodb数据库内核开发|主要涉及mongodb源码、mongos源码、rocksdb存储引擎源码、wiredtiger存储引擎源码分析及二次开发|
+|1|[第一阶段|分布式缓存源码学习、二次开发、性能及稳定性优化|主要涉及网络实现、memcache redis重要模块源码分析、memcache redis性能稳定性优化及二次开发等|
+|2|[第二阶段|高性能代理中间件开发(nginx、wemproxy、dbproxy、mongos等源码进行二次开发)|主要涉及代理中间件源码分析、性能优化、二次开发等|
+|3|[第三阶段|分布式大容量nosql存储系统二次开发(突破缓存内存容量限制)|主要涉及pika、tendis源码、rocksdb存储引擎源码分析及pika性能优化等|
+|4|[第四阶段|mongodb数据库内核开发|主要涉及mongodb源码、mongos源码、rocksdb存储引擎源码、wiredtiger存储引擎源码分析及二次开发|
    
   
   
@@ -68,7 +68,7 @@
 ## 第四阶段：mongodb数据库源码学习，二次开发等   
 ###《mongodb内核源码设计与实现》源码模块化分析  
 #### 第一阶段：单机内核源码分析  
-![mongodb单机模块化架构图](/image/单机模块架构.png)  
+![mongodb单机模块化架构图](/img/单机模块架构.png)  
 |#|单机模块名|核心代码中文注释|说明|模块文档输出|
 |:-|:-|:-|:-|:-|
 |1|[网络收发处理(含工作线程模型)](https://github.com/y123456yz/reading-and-annotate-mongodb-3.6/blob/master/mongo/README.md#L8)|网络处理模块核心代码实现(100%注释分析)|完成ASIO库、网络数据收发、同步线程模型、动态线程池模型等功能|[详见infoq专栏：《MongoDB内核源码设计、性能优化、最佳运维实践》](https://www.infoq.cn/profile/8D2D4D588D3D8A/publish)|
