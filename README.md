@@ -1,4 +1,6 @@
 # middleware_development_learning
+rocksdb理解好文章:  一文科普 RocksDB 工作原理  https://zhuanlan.zhihu.com/p/632841342
+polardb村算分离好文章: 从架构层面分析PolarDB技术要点 https://www.modb.pro/db/1711317557817974784
 中间件、高性能服务器、分布式存储等(redis、memcache、pika、rocksdb、mongodb、wiredtiger、高性能代理中间件)二次开发、性能优化，逐步整理文档说明并配合demo指导  
   
 近期抽业余时间来总结多年工作中学习到的各种中间件、分布式存储、高性能服务端等技术，通过文章博客和程序demo等方式呈现给大家，暂定分享思路如下：
